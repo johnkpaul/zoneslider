@@ -30,10 +30,8 @@
 
     </div>
     <div id="zoneslider"></div>
-    <script type="text/javascript" src="js/vendor/jquery.js"></script>
     <script type="text/javascript" src="js/vendor/raphael-min.js"></script>
     <script type="text/javascript" src="js/vendor/xxspubsub.js"></script>
-    <script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/vendor/json2.js"></script>
     <script type="text/javascript" src="/bundle"></script>
     <script type="text/javascript">
@@ -49,6 +47,20 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 
+</script>
+
+<script type="text/x-handlebars" >
+  {{outlet}}
+</script>
+
+<script type="text/x-handlebars" id="index">
+{{#each controller}}
+  {{this.format}}
+{{/each}}
+</script>
+
+<script type="text/x-handlebars" id="components/day">
+This is d ay
 </script>
   </body>
 </html>

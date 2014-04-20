@@ -1,3 +1,4 @@
 node_modules
 dist
 *.pid
+bower_components

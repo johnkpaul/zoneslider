@@ -5,18 +5,49 @@
   "version": "0.0.0",
   "homepage": "https://github.com/papajuans/zoneslider",
   "scripts": {
-    "build": "browserify ./js/src/app.js > dist/bundle.js"
+    "build": "browserify ./js/src/app.js > dist/bundle.js",
+    "postinstall": "bower install"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/papajuans/zoneslider.git"
   },
   "dependencies": {
-    "browserify": "~3.41.0"
+    "browserify": "3.41.0",
+    "bower": "~1.3.2",
+    "browserify-shim": "3.4.1",
+    "es6ify": "~1.1.0",
+    "moment": "~2.6.0"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "optionalDependencies": {},
+  "browser": {
+    "jquery": "./bower_components/jquery/dist/jquery.js",
+    "handlebars": "./bower_components/handlebars/handlebars.js",
+    "ember": "./bower_components/ember/ember.js",
+    "bootstrap": "./public/js/vendor/bootstrap.min.js"
+  },
+  "browserify-shim": {
+    "jquery": "$",
+    "handlebars": "Handlebars",
+    "bootstrap": {
+      "depends": [
+        "jquery:$"
+      ]
+    },
+    "ember": {
+      "exports": "Ember",
+      "depends": [
+        "jquery:$",
+        "handlebars:Handlebars"
+      ]
+    }
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
   "engines": {
     "node": "*"
   }

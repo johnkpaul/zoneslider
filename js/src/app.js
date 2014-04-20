@@ -2,6 +2,7 @@ var TimeUtil = require('./time-util');
 var CookieUtil = require('./cookie-util');
 var ZoneSlider = require('./zoneslider');
 var CityTime = require('./citytime');
+var $ = require('jquery');
 
 var searchResults = [];
 var paper = null;
@@ -63,6 +64,8 @@ function setupTools() {
   $("#add1hours").click(function() { publish("viewport.move", [12.5]);});
   $("#subtract1hours").click(function() { publish("viewport.move", [-12.5]);});
 
+  var bootstrap = require('bootstrap');
+
   $("#city-search").typeahead({
     source: function(query, process) {
       return $.get('search', {q: query}, function(data) {
@@ -110,4 +113,38 @@ subscribe("save", function() {
   rememberCities();
 });
 
+var Handlebars = require('handlebars');
+var Ember = require('ember');
 
+var App = window.App = Ember.Application.create();
+App.IndexRoute = Ember.Route.extend({
+  model: function() {
+    return getDays();
+  }
+});
+
+App.IndexController = Ember.ArrayController.extend({
+  itemController: 'day'
+});
+
+App.DayController = Ember.ObjectController.extend({
+  format: function(){
+    return this.get('model').get('date');
+  }.property()
+});
+
+function getDays(){
+  var moment = require('moment');
+  var today = moment();
+  var next = today.startOf('year');
+  var startYear = today.year();
+  var days = [next];
+    
+  do {
+    next = next.clone().add('days', 1)
+    days.push(next);
+  } while(next.year() === startYear)
+
+  return days;
+  
+}
